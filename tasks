@@ -1,0 +1,72 @@
+#!/bin/bash
+
+set -Eeo pipefail
+
+stack_name=data-sandbox
+tf_dir=terraform
+aws_region="eu-west-2"
+state_lock_table="prm-gp2gp-terraform-table"
+state_bucket="prm-gp2gp-terraform-state"
+s3_state_key=${stack_name}/terraform.tfstate
+
+function tf_init {
+
+    stack_env=$1
+    rm -rf .terraform
+
+    terraform init \
+        -backend-config key=${s3_state_key} \
+        -backend-config bucket=${state_bucket} \
+        -backend-config dynamodb_table=${state_lock_table} \
+        -backend-config region=${aws_region} \
+        ${tf_dir}
+}
+
+if [ "$#" -lt 1 ]; then
+    echo "Usage: $0 TASK [STACK-ENVIRONMENT]"
+    exit 1
+fi
+
+task="$1"
+
+echo "--- ${task} ---"
+case "${task}" in
+    validate)
+        stack_env="$2"
+        tf_init $stack_env
+        terraform validate ${tf_dir}
+    ;;
+    dojo-validate)
+        stack_env="$2"
+        dojo "./tasks validate ${stack_env}"
+    ;;
+    plan)
+        stack_env="$2"
+        tf_init $stack_env
+        terraform plan \
+            -var environment=${stack_env} \
+            -out=${stack_env}.tfplan ${tf_dir}
+    ;;
+    dojo-plan)
+        stack_env="$2"
+        dojo "./tasks plan ${stack_env}"
+    ;;
+    apply)
+        stack_env="$2"
+        tf_init $stack_env
+        terraform apply ${stack_env}.tfplan
+    ;;
+    dojo-apply)
+        stack_env="$2"
+        dojo "./tasks apply ${stack_env}"
+    ;;
+    format)
+        terraform fmt terraform
+    ;;
+    *)
+        echo "Invalid task: '${task}'"
+        exit 1
+    ;;
+esac
+
+set +e
