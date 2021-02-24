@@ -16,12 +16,22 @@ resource "aws_s3_bucket" "data_sandbox" {
     }
   }
 
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
+
   tags = {
     Name        = "GP2GP data sandbox"
     CreatedBy   = var.repo_name
     Environment = var.environment
     Team        = var.team
   }
+
+
 }
 
 resource "aws_s3_bucket_public_access_block" "data_sandbox_block" {

@@ -7,11 +7,13 @@ tf_dir=terraform
 aws_region="eu-west-2"
 state_lock_table="prm-gp2gp-terraform-table"
 state_bucket="prm-gp2gp-terraform-state"
-s3_state_key=${stack_name}/terraform.tfstate
 
 function tf_init {
 
     stack_env=$1
+
+    s3_state_key=${stack_env}/${stack_name}/terraform.tfstate
+
     rm -rf .terraform
 
     terraform init \
