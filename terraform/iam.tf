@@ -22,6 +22,11 @@ resource "aws_iam_role_policy_attachment" "notebook_sagemaker" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonSageMakerFullAccess"
 }
 
+resource "aws_iam_role_policy_attachment" "notebook_bucket_access" {
+  role       = aws_iam_role.notebook.name
+  policy_arn = aws_iam_policy.sandbox_bucket_access.arn
+}
+
 resource "aws_iam_policy" "sandbox_bucket_access" {
   name   = "${var.environment}-sandbox-bucket-access"
   policy = data.aws_iam_policy_document.sandbox_bucket_access.json
