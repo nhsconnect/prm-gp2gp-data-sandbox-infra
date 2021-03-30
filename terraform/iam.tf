@@ -60,7 +60,8 @@ data "aws_iam_policy_document" "sandbox_bucket_access" {
     ]
 
     resources = [
-      "arn:aws:s3:::${aws_s3_bucket.data_sandbox.bucket}/*"
+      "arn:aws:s3:::${aws_s3_bucket.data_sandbox.bucket}/*",
+      "arn:aws:s3:::${data.aws_ssm_parameter.mi_data_bucket.value}/*"
     ]
   }
 }
