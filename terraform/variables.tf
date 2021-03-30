@@ -20,3 +20,8 @@ variable "region" {
   description = "AWS region."
   default     = "eu-west-2"
 }
+
+variable "mi_data_bucket_ssm_param_name" {
+  type        = string
+  description = "Name of SSM parameter containing MI data bucket name"
+}

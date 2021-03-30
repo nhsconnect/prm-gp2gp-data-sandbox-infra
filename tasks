@@ -47,6 +47,7 @@ case "${task}" in
         tf_init $stack_env
         terraform plan \
             -var environment=${stack_env} \
+            -var-file=${stack_env}.tfvars \
             -out=${stack_env}.tfplan ${tf_dir}
     ;;
     dojo-plan)
