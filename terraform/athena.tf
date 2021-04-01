@@ -45,7 +45,7 @@ resource "aws_glue_catalog_table" "mi_data_catalog_table" {
   }
 
   storage_descriptor {
-    location      = data.aws_ssm_parameter.mi_data_bucket.value
+    location      = "s3://${data.aws_ssm_parameter.mi_data_bucket.value}/"
     input_format  = "org.apache.hadoop.mapred.TextInputFormat"
     output_format = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
 
