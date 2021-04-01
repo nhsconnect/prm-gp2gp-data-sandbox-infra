@@ -42,3 +42,7 @@ resource "aws_s3_bucket_public_access_block" "data_sandbox_block" {
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
+
+data "aws_ssm_parameter" "mi_data_bucket" {
+  name = var.mi_data_bucket_ssm_param_name
+}

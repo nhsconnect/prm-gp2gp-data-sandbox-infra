@@ -33,3 +33,39 @@ resource "aws_s3_bucket_public_access_block" "athena_results_block" {
 resource "aws_glue_catalog_database" "mi_data_catalog_database" {
   name = "prm-gp2gp-mi-data-sandbox-${var.environment}"
 }
+
+resource "aws_glue_catalog_table" "mi_data_catalog_table" {
+  name          = "gp2gp_mi"
+  database_name = aws_glue_catalog_database.mi_data_catalog_database.name
+
+  table_type = "EXTERNAL_TABLE"
+
+  parameters = {
+    EXTERNAL = "TRUE"
+  }
+
+  storage_descriptor {
+    location      = data.aws_ssm_parameter.mi_data_bucket.value
+    input_format  = "org.apache.hadoop.mapred.TextInputFormat"
+    output_format = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
+
+    ser_de_info {
+      serialization_library = "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe"
+
+      parameters = {
+        "field.delim"          = ","
+        "serialization.format" = ","
+      }
+    }
+
+    dynamic "columns" {
+      for_each = range(1, 36)
+      content {
+        name = "col${columns.value}"
+        type = "string"
+      }
+    }
+
+  }
+}
+
