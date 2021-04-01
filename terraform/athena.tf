@@ -16,8 +16,19 @@ resource "aws_s3_bucket" "athena_results" {
     Environment = var.environment
     Team        = var.team
   }
+}
 
+resource "aws_athena_workgroup" "athena_workgroup" {
+  name = "prm-gp2gp-athena-workgroup-${var.environment}"
 
+  configuration {
+    enforce_workgroup_configuration    = true
+    publish_cloudwatch_metrics_enabled = true
+
+    result_configuration {
+      output_location = aws_s3_bucket.athena_results.bucket
+    }
+  }
 }
 
 resource "aws_s3_bucket_public_access_block" "athena_results_block" {
