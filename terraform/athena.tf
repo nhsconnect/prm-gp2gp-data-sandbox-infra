@@ -26,7 +26,7 @@ resource "aws_athena_workgroup" "athena_workgroup" {
     publish_cloudwatch_metrics_enabled = true
 
     result_configuration {
-      output_location = aws_s3_bucket.athena_results.bucket
+      output_location = "s3://${aws_s3_bucket.athena_results.bucket}/"
     }
   }
 }
