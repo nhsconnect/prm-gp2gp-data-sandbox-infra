@@ -28,3 +28,8 @@ resource "aws_s3_bucket_public_access_block" "athena_results_block" {
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
+
+
+resource "aws_glue_catalog_database" "mi_data_catalog_database" {
+  name = "prm-gp2gp-mi-data-sandbox-${var.environment}"
+}
