@@ -114,3 +114,136 @@ resource "aws_glue_catalog_table" "emis_resent_mi_data_catalog_table" {
 
   }
 }
+
+resource "aws_glue_catalog_table" "gp2gp_attachment_metadata" {
+  name          = "gp2gp_attachment_metadata"
+  database_name = aws_glue_catalog_database.mi_data_catalog_database.name
+
+  table_type = "EXTERNAL_TABLE"
+
+  parameters = {
+    EXTERNAL = "TRUE"
+  }
+
+  storage_descriptor {
+    location      = "s3://${aws_s3_bucket.data_sandbox.bucket}/attachment-insights/attachments-metadata/"
+    input_format  = "org.apache.hadoop.mapred.TextInputFormat"
+    output_format = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
+
+    ser_de_info {
+      serialization_library = "org.apache.hadoop.hive.serde2.OpenCSVSerde"
+
+      parameters = {
+        "skip.header.line.count" = "1"
+      }
+    }
+
+    columns {
+      name = "time"
+      type = "string"
+    }
+
+    columns {
+      name = "attachment_id"
+      type = "string"
+    }
+
+    columns {
+      name = "conversation_id"
+      type = "string"
+    }
+
+    columns {
+      name = "from_system"
+      type = "string"
+    }
+
+    columns {
+      name = "to_system"
+      type = "string"
+    }
+
+    columns {
+      name = "attachment_type"
+      type = "string"
+    }
+
+    columns {
+      name = "compressed"
+      type = "string"
+    }
+
+    columns {
+      name = "content_type"
+      type = "string"
+    }
+
+    columns {
+      name = "large_attachment"
+      type = "string"
+    }
+
+    columns {
+      name = "length"
+      type = "string"
+    }
+
+    columns {
+      name = "original_base64"
+      type = "string"
+    }
+
+    columns {
+      name = "internal_id"
+      type = "string"
+    }
+
+  }
+}
+
+
+resource "aws_glue_catalog_table" "gp2gp_attachment_messages" {
+  name          = "gp2gp_attachment_messages"
+  database_name = aws_glue_catalog_database.mi_data_catalog_database.name
+
+  table_type = "EXTERNAL_TABLE"
+
+  parameters = {
+    EXTERNAL = "TRUE"
+  }
+
+  storage_descriptor {
+    location      = "s3://${aws_s3_bucket.data_sandbox.bucket}/attachment-insights/gp2gp-messages/"
+    input_format  = "org.apache.hadoop.mapred.TextInputFormat"
+    output_format = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
+
+    ser_de_info {
+      serialization_library = "org.apache.hadoop.hive.serde2.OpenCSVSerde"
+
+      parameters = {
+        "skip.header.line.count" = "1"
+      }
+    }
+
+    columns {
+      name = "time"
+      type = "string"
+    }
+
+    columns {
+      name = "conversation_id"
+      type = "string"
+    }
+
+    columns {
+      name = "internal_id"
+      type = "string"
+    }
+
+    columns {
+      name = "interaction_id"
+      type = "string"
+    }
+
+  }
+}
