@@ -80,41 +80,6 @@ resource "aws_glue_catalog_table" "mi_data_catalog_table" {
   }
 }
 
-resource "aws_glue_catalog_table" "emis_resent_mi_data_catalog_table" {
-  name          = "gp2gp_emis_resent_mi"
-  database_name = aws_glue_catalog_database.mi_data_catalog_database.name
-
-  table_type = "EXTERNAL_TABLE"
-
-  parameters = {
-    EXTERNAL = "TRUE"
-  }
-
-  storage_descriptor {
-    location      = "s3://${aws_s3_bucket.data_sandbox.bucket}/EMIS-MI-data/"
-    input_format  = "org.apache.hadoop.mapred.TextInputFormat"
-    output_format = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
-
-    ser_de_info {
-      serialization_library = "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe"
-
-      parameters = {
-        "field.delim"          = ","
-        "serialization.format" = ","
-      }
-    }
-
-    dynamic "columns" {
-      for_each = range(1, 36)
-      content {
-        name = "col${columns.value}"
-        type = "string"
-      }
-    }
-
-  }
-}
-
 resource "aws_glue_catalog_table" "gp2gp_attachment_metadata" {
   name          = "gp2gp_attachment_metadata"
   database_name = aws_glue_catalog_database.mi_data_catalog_database.name
