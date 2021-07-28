@@ -1,11 +1,15 @@
 format_version: 4
 pipelines:
-  "prm-gp2gp-data-sandbox-infra":
-    group: gp2gp
-    label_template: "${git[:8]}"
+  "data-sandbox-infra-common-account":
+    group: gp2gp-data-sandbox-infra
+    label_template: "${data_sandbox[:8]}"
     materials:
-      git:
-        type: configrepo
+      data_sandbox:
+        plugin_configuration:
+          id: git-path
+        options:
+          url: https://github.com/nhsconnect/prm-gp2gp-data-sandbox-infra.git
+          path: stacks/data-sandbox
     stages:
       - validate:
           clean_workspace: true
@@ -18,8 +22,8 @@ pipelines:
                     command: /bin/bash
                     arguments:
                       - -c
-                      - ./tasks dojo-validate dev
-      - plan_dev:
+                      - ./tasks dojo-validate data-sandbox common_dev
+      - plan_common_dev:
           clean_workspace: true
           jobs:
             plan:
@@ -27,14 +31,14 @@ pipelines:
                 - docker
               artifacts:
                 - build:
-                    source: dev.tfplan
+                    source: common_dev.tfplan
               tasks:
                 - exec:
                     command: /bin/bash
                     arguments:
                       - -c
-                      - ./tasks dojo-plan dev
-      - apply_dev:
+                      - ./tasks dojo-plan data-sandbox common_dev
+      - apply_common_dev:
           clean_workspace: true
           jobs:
             apply:
@@ -42,12 +46,12 @@ pipelines:
                 - docker
               tasks:
                 - fetch:
-                    stage: plan_dev
+                    stage: plan_common_dev
                     job: plan
-                    source: dev.tfplan
+                    source: common_dev.tfplan
                     is_file: yes
                 - exec:
                     command: /bin/bash
                     arguments:
                       - -c
-                      - ./tasks dojo-apply dev
+                      - ./tasks dojo-apply data-sandbox common_dev

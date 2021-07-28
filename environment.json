@@ -1,0 +1,8 @@
+{
+    "common_dev": {
+        "name": "dev",
+        "bucket_name":"prm-gp2gp-terraform-state",
+        "dynamo_table": "prm-gp2gp-terraform-table",
+        "state_key_prefix": "dev/"
+    }
+}
