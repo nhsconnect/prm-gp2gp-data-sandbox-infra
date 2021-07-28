@@ -24,7 +24,7 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks dojo-validate notebooks dev
-      - plan_common_dev:
+      - plan_dev:
           clean_workspace: true
           jobs:
             plan:
@@ -39,7 +39,7 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks dojo-plan notebooks dev
-      - apply_common_dev:
+      - apply_dev:
           clean_workspace: true
           jobs:
             apply:
