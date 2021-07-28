@@ -10,6 +10,7 @@ pipelines:
         options:
           url: https://github.com/nhsconnect/prm-gp2gp-data-sandbox-infra.git
           path: stacks/data-sandbox
+          branch: main
     stages:
       - validate:
           clean_workspace: true
