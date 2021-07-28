@@ -2,9 +2,9 @@ format_version: 4
 pipelines:
   "data-sandbox-notebooks":
     group: gp2gp-data-sandbox-infra
-    label_template: "${data_sandbox[:8]}"
+    label_template: "${data_sandbox_notebooks[:8]}"
     materials:
-      data_sandbox:
+      data_sandbox_notebooks:
         plugin_configuration:
           id: git-path
         options:
