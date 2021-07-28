@@ -1,5 +1,7 @@
 # prm-gp2gp-data-sandbox-infra
 
+This repo contains infrastructure code for provisioning AWS resources that support exploratory GP2GP data analytics.
+
 ## Setup
 
 These instructions assume you are using:
@@ -9,13 +11,23 @@ These instructions assume you are using:
 
 ## Applying terraform
 
-### Enter the container:
+Rolling out terraform against each environment is managed by the GoCD pipeline.
+If you'd like to test it locally, run the following commands:
+
+1. Enter the container:
 
 `aws-vault exec <profile-name> -- dojo`
 
-### Invoke terraform locally:
+2. Invoke terraform:
 
 ```
-  ./tasks validate dev
-  ./tasks plan dev
+  ./tasks validate <stack-name> <environment>
+  ./tasks plan <stack-name> <environment>
+```
+
+For example:
+
+```
+  ./tasks validate notebooks dev
+  ./tasks plan notebooks dev
 ```
