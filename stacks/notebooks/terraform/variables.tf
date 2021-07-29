@@ -20,3 +20,8 @@ variable "repo_name" {
   default     = "prm-gp2gp-data-sandbox-infra"
   description = "Name of this repository"
 }
+
+variable "data_sandbox_url" {
+  type = string
+  description = "Git url of data sandbox repo"
+}
