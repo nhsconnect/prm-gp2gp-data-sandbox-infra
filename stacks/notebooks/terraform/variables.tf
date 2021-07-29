@@ -22,6 +22,11 @@ variable "repo_name" {
 }
 
 variable "data_sandbox_url" {
-  type = string
+  type        = string
   description = "Git url of data sandbox repo"
+}
+
+variable "read_only_bucket_params" {
+  type        = list(string)
+  description = "List of ssm parameters containing buckets to which the notebooks have read only access"
 }
