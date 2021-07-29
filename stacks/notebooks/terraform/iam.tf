@@ -78,7 +78,7 @@ data "aws_iam_policy_document" "data_pipeline_buckets_read_only_access" {
       "s3:ListBucket",
     ]
 
-    resources = [for s in data.aws_ssm_parameter.read_only_buckets : s.value]
+    resources = [for params in data.aws_ssm_parameter.read_only_buckets : "arn:aws:s3:::${params.value}"]
   }
 
   statement {
