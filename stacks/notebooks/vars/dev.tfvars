@@ -4,6 +4,6 @@ read_only_bucket_params= [
   "/registrations/dev/data-pipeline/spine-exporter/output-bucket-name",
   "/registrations/dev/data-pipeline/ods-downloader/asid-lookup-bucket-name",
   "/registrations/dev/data-pipeline/ods-downloader/output-bucket-name",
-  "/registrations/dev/data-pipeline/gp-registrations-mi/output-bucket-name"
+  "/registrations/dev/gp-registrations-mi/output-bucket-name"
 ]
 
