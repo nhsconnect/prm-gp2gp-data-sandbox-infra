@@ -10,12 +10,12 @@ resource "aws_s3_bucket" "athena_results" {
     }
   }
 
-  tags = {
-    Name        = "GP2GP athena results"
-    CreatedBy   = var.repo_name
-    Environment = var.environment
-    Team        = var.team
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "GP2GP athena results"
+    }
+  )
 }
 
 resource "aws_athena_workgroup" "athena_workgroup" {

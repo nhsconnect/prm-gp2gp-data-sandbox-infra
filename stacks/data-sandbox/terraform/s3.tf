@@ -24,12 +24,12 @@ resource "aws_s3_bucket" "data_sandbox" {
     }
   }
 
-  tags = {
-    Name        = "GP2GP data sandbox"
-    CreatedBy   = var.repo_name
-    Environment = var.environment
-    Team        = var.team
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "GP2GP data sandbox"
+    }
+  )
 
 
 }

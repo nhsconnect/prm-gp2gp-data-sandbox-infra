@@ -24,12 +24,12 @@ resource "aws_s3_bucket" "notebook_data" {
     }
   }
 
-  tags = {
-    Name        = "GP2GP notebook data"
-    CreatedBy   = var.repo_name
-    Environment = var.environment
-    Team        = var.team
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "GP2GP notebook data"
+    }
+  )
 
 
 }
