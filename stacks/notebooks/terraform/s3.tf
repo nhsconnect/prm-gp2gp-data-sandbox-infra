@@ -27,11 +27,10 @@ resource "aws_s3_bucket" "notebook_data" {
   tags = merge(
     local.common_tags,
     {
-      Name = "GP2GP notebook data"
+      Name = "${var.environment}-prm-gp2gp-notebook-data-s3-bucket"
+      ApplicationRole = "AwsS3Bucket"
     }
   )
-
-
 }
 
 resource "aws_s3_bucket_public_access_block" "notebook_data_block" {

@@ -13,7 +13,8 @@ resource "aws_s3_bucket" "athena_results" {
   tags = merge(
     local.common_tags,
     {
-      Name = "GP2GP athena results"
+      Name = "${var.environment}-GP2GP-athena-results-s3-bucket"
+      ApplicationRole = "AwsS3Bucket"
     }
   )
 }

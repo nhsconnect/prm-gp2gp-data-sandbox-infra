@@ -27,11 +27,10 @@ resource "aws_s3_bucket" "data_sandbox" {
   tags = merge(
     local.common_tags,
     {
-      Name = "GP2GP data sandbox"
+      Name = "${var.environment}-prm-gp2gp-data-sandbox-s3-bucket"
+      ApplicationRole = "AwsS3Bucket"
     }
   )
-
-
 }
 
 resource "aws_s3_bucket_public_access_block" "data_sandbox_block" {
