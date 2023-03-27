@@ -79,7 +79,7 @@ dojo-plan)
   ;;
 apply)
   tf_init
-  terraform -chdir=${stack_env}.tfplan apply
+  terraform apply ${stack_env}.tfplan
   ;;
 dojo-apply)
   dojo "./tasks apply ${stack_name} ${stack_env}"
