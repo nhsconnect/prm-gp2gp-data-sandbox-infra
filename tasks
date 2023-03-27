@@ -50,7 +50,7 @@ export TF_DATA_DIR=.terraform/${stack_env}/${stack_name}
 
 function tf_init() {
   assume_role
-  terraform -chdir=${tf_dir} init -lockfile=readonly \
+  terraform -chdir=${tf_dir} init -upgrade \
     -backend-config key=${s3_state_key} \
     -backend-config bucket=${state_bucket} \
     -backend-config dynamodb_table=${state_lock_table} \
