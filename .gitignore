@@ -1,3 +1,5 @@
 .terraform
 *.tfplan
 .idea
+**/**/.terraform
+**/**/.terraform.*

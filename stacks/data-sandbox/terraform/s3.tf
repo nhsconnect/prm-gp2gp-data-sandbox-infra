@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "data_sandbox" {
   bucket = "prm-gp2gp-data-sandbox-${var.environment}"
-  acl    = "private"
+  acl = "private"
 
   # To protect again accidental data loss
   versioning {
@@ -25,9 +25,8 @@ resource "aws_s3_bucket" "data_sandbox" {
   }
 
   tags = merge(
-    local.common_tags,
-    {
-      Name = "${var.environment}-prm-gp2gp-data-sandbox-s3-bucket"
+    local.common_tags, {
+      Name            = "${var.environment}-prm-gp2gp-data-sandbox-s3-bucket"
       ApplicationRole = "AwsS3Bucket"
     }
   )
