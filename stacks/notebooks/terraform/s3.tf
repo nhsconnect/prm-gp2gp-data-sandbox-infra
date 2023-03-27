@@ -27,7 +27,7 @@ resource "aws_s3_bucket" "notebook_data" {
   tags = merge(
     local.common_tags,
     {
-      Name = "${var.environment}-prm-gp2gp-notebook-data-s3-bucket"
+      Name            = "${var.environment}-prm-gp2gp-notebook-data-s3-bucket"
       ApplicationRole = "AwsS3Bucket"
     }
   )
