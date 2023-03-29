@@ -32,7 +32,7 @@ pipelines:
                 - docker
               artifacts:
                 - build:
-                    source: stacks/notebooks/terraform/dev.tfplan
+                    source: ./dev.tfplan
                     destination: ./
                 - build:
                     source: stacks/notebooks/terraform/.terraform.lock.hcl
@@ -43,6 +43,16 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks dojo-plan notebooks dev
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ls -lsa
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ls -lsa stacks/notebooks/terraform
       - apply_dev:
           clean_workspace: true
           jobs:
