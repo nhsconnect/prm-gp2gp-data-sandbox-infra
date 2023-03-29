@@ -32,11 +32,10 @@ pipelines:
                 - docker
               artifacts:
                 - build:
-                    source: ./dev.tfplan
-                    destination: ./
+                    source: dev.tfplan
+                    destination: stacks/notebooks/terraform
                 - build:
                     source: stacks/notebooks/terraform/.terraform.lock.hcl
-                    destination: stacks/notebooks/terraform
               tasks:
                 - exec:
                     command: /bin/bash
@@ -63,12 +62,12 @@ pipelines:
                 - fetch:
                     stage: plan_dev
                     job: plan
-                    source: dev.tfplan
+                    source: stacks/notebooks/terraform/dev.tfplan
                     is_file: yes
                 - fetch:
                     stage: plan_dev
                     job: plan
-                    source: stacks/notebooks/terraform/.terraform.lock.hcl
+                    source: .terraform.lock.hcl
                     is_file: yes
                 - exec:
                     command: /bin/bash
@@ -83,10 +82,10 @@ pipelines:
                 - docker
               artifacts:
                 - build:
-                    source: stacks/notebooks/prod.tfplan
+                    source: stacks/notebooks/terraform/prod.tfplan
                     destination: stacks/notebooks
                 - build:
-                    source: stacks/notebooks/.terraform.lock.hcl
+                    source: stacks/notebooks/terraform/.terraform.lock.hcl
                     destination: stacks/notebooks
               tasks:
                 - exec:
