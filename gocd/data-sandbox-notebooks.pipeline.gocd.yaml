@@ -33,7 +33,7 @@ pipelines:
               artifacts:
                 - build:
                     source: stacks/notebooks/terraform/dev.tfplan
-
+                    destination: ./
                 - build:
                     source: stacks/notebooks/terraform/.terraform.lock.hcl
                     destination: stacks/notebooks/terraform
