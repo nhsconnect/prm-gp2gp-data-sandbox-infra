@@ -32,8 +32,7 @@ pipelines:
                 - docker
               artifacts:
                 - build:
-                    source: dev.tfplan
-                    destination: stacks/notebooks/terraform
+                    source: stacks/notebooks/terraform/dev.tfplan
                 - build:
                     source: stacks/notebooks/terraform/.terraform.lock.hcl
               tasks:
@@ -62,7 +61,7 @@ pipelines:
                 - fetch:
                     stage: plan_dev
                     job: plan
-                    source: stacks/notebooks/terraform/dev.tfplan
+                    source: dev.tfplan
                     is_file: yes
                 - fetch:
                     stage: plan_dev
