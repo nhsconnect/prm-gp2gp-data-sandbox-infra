@@ -32,10 +32,10 @@ pipelines:
                 - docker
               artifacts:
                 - build:
-                    source: stacks/notebooks/dev.tfplan
+                    source: dev.tfplan
                     destination: stacks/notebooks
                 - build:
-                    source: stacks/notebooks/.terraform.lock.hcl
+                    source: .terraform.lock.hcl
                     destination: stacks/notebooks
               tasks:
                 - exec:
@@ -43,6 +43,11 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks dojo-plan notebooks dev
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ls
       - apply_dev:
           clean_workspace: true
           jobs:
@@ -73,10 +78,10 @@ pipelines:
                 - docker
               artifacts:
                 - build:
-                    source: stacks/notebooks/prod.tfplan
+                    source: prod.tfplan
                     destination: stacks/notebooks
                 - build:
-                    source: stacks/notebooks/.terraform.lock.hcl
+                    source: .terraform.lock.hcl
                     destination: stacks/notebooks
               tasks:
                 - exec:
