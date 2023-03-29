@@ -32,7 +32,7 @@ pipelines:
                 - docker
               artifacts:
                 - build:
-                    source: dev.tfplan
+                    source: /stacks/notebooks/dev.tfplan
               tasks:
                 - exec:
                     command: /bin/bash
@@ -49,7 +49,7 @@ pipelines:
                 - fetch:
                     stage: plan_dev
                     job: plan
-                    source: dev.tfplan
+                    source: /stacks/notebooks/dev.tfplan
                     is_file: yes
                 - exec:
                     command: /bin/bash
@@ -64,7 +64,7 @@ pipelines:
                 - docker
               artifacts:
                 - build:
-                    source: prod.tfplan
+                    source: /stacks/notebooks/prod.tfplan
               tasks:
                 - exec:
                     command: /bin/bash
@@ -84,7 +84,7 @@ pipelines:
                 - fetch:
                     stage: plan_prod
                     job: plan
-                    source: prod.tfplan
+                    source: /stacks/notebooks/prod.tfplan
                     is_file: yes
                 - exec:
                     command: /bin/bash

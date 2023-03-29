@@ -50,7 +50,7 @@ export TF_DATA_DIR=.terraform/${stack_env}/${stack_name}
 
 function tf_init() {
   assume_role
-  terraform -chdir=${tf_dir} init -upgrade \
+  terraform -chdir=${tf_dir} init \
     -backend-config key=${s3_state_key} \
     -backend-config bucket=${state_bucket} \
     -backend-config dynamodb_table=${state_lock_table} \
@@ -69,7 +69,7 @@ dojo-validate)
 plan)
   tf_init
   var_file=$(eval "pwd")/stacks/${stack_name}/vars/${stack_env}.tfvars
-  plan_output=$(eval "pwd")/${stack_env}.tfplan
+  plan_output=${stack_env}.tfplan
   terraform -chdir=${tf_dir} plan -var environment=$env_name \
     -var-file=${var_file} \
     -out=${plan_output}
