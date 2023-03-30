@@ -78,7 +78,7 @@ dojo-plan)
   dojo "./tasks plan ${stack_name} ${stack_env}"
   ;;
 apply)
-  tf_init
+#  tf_init
   terraform apply ${stack_env}.tfplan
   ;;
 dojo-apply)
