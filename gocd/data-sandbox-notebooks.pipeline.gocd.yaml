@@ -74,6 +74,11 @@ pipelines:
                     command: /bin/bash
                     arguments:
                       - -c
+                      - cp .terraform.lock.hcl stacks/notebooks/terraform/.terraform.lock.hcl
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
                       - ./tasks dojo-apply notebooks dev
       - plan_prod:
           clean_workspace: true
