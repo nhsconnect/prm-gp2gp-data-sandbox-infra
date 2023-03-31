@@ -56,6 +56,12 @@ pipelines:
                     source: stacks/data-sandbox/terraform/common_dev.tfplan
                     destination: stacks/data-sandbox/terraform
                     is_file: yes
+                - fetch:
+                    stage: plan_common_dev
+                    job: plan
+                    source: stacks/data-sandbox/terraform/terraform.lock.hcl
+                    destination: stacks/data-sandbox/terraform
+                    is_file: yes
                 - exec:
                     command: /bin/bash
                     arguments:
