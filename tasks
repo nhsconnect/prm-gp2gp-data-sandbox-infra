@@ -89,8 +89,9 @@ format)
   ;;
 destroy)
   tf_init
+  var_file=$(eval "pwd")/stacks/${stack_name}/vars/${stack_env}.tfvars
   terraform -chdir=${tf_dir} destroy -var environment=$env_name \
-    -var-file=stacks/${stack_name}/vars/${stack_env}.tfvars
+    -var-file=${var_file}
   ;;
 *)
   echo "Invalid task: '${task}'"
