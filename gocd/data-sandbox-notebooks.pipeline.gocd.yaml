@@ -43,16 +43,6 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks dojo-plan notebooks dev
-                - exec:
-                    command: /bin/bash
-                    arguments:
-                      - -c
-                      - ls -lsa
-                - exec:
-                    command: /bin/bash
-                    arguments:
-                      - -c
-                      - ls -lsa stacks/notebooks/terraform
       - apply_dev:
           clean_workspace: true
           jobs:
@@ -76,11 +66,6 @@ pipelines:
                     command: /bin/bash
                     arguments:
                       - -c
-                      - ls -lsa stacks/notebooks/terraform
-                - exec:
-                    command: /bin/bash
-                    arguments:
-                      - -c
                       - ./tasks dojo-apply notebooks dev
       - plan_prod:
           clean_workspace: true
@@ -91,10 +76,10 @@ pipelines:
               artifacts:
                 - build:
                     source: stacks/notebooks/terraform/prod.tfplan
-                    destination: stacks/notebooks
+                    destination: stacks/notebooks/terraform
                 - build:
                     source: stacks/notebooks/terraform/.terraform.lock.hcl
-                    destination: stacks/notebooks
+                    destination: stacks/notebooks/terraform
               tasks:
                 - exec:
                     command: /bin/bash
@@ -115,11 +100,13 @@ pipelines:
                     stage: plan_prod
                     job: plan
                     source: stacks/notebooks/terraform/prod.tfplan
+                    destination: stacks/notebooks/terraform
                     is_file: yes
                 - fetch:
                     stage: plan_prod
                     job: plan
                     source: stacks/notebooks/terraform/.terraform.lock.hcl
+                    destination: stacks/notebooks/terraform
                     is_file: yes
                 - exec:
                     command: /bin/bash
