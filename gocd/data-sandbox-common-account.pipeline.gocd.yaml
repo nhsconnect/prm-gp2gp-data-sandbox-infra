@@ -32,7 +32,11 @@ pipelines:
                 - docker
               artifacts:
                 - build:
-                    source: common_dev.tfplan
+                    source: stacks/data-sandbox/terraform/common_dev.tfplan
+                    destination: stacks/data-sandbox/terraform
+                - build:
+                   source: stacks/data-sandbox/terraform/.terraform.lock.hcl
+                   destination: stacks/data-sandbox/terraform
               tasks:
                 - exec:
                     command: /bin/bash
@@ -49,7 +53,8 @@ pipelines:
                 - fetch:
                     stage: plan_common_dev
                     job: plan
-                    source: common_dev.tfplan
+                    source: stacks/data-sandbox/terraform/common_dev.tfplan
+                    destination: stacks/data-sandbox/terraform
                     is_file: yes
                 - exec:
                     command: /bin/bash
