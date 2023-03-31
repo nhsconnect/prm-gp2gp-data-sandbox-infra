@@ -63,6 +63,11 @@ pipelines:
                     destination: stacks/data-sandbox/terraform
                     is_file: yes
                 - exec:
+                  command: /bin/bash
+                  arguments:
+                    - -c
+                    - ls -lsa stacks/data-sandbox/terraform
+                - exec:
                     command: /bin/bash
                     arguments:
                       - -c
