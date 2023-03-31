@@ -20,4 +20,3 @@ locals {
     BackupRemote        = "False"
   }
 }
-
