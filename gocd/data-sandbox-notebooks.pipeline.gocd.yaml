@@ -64,17 +64,19 @@ pipelines:
                     stage: plan_dev
                     job: plan
                     source: stacks/notebooks/terraform/dev.tfplan
+                    destination: stacks/notebooks/terraform/dev.tfplan
                     is_file: yes
                 - fetch:
                     stage: plan_dev
                     job: plan
                     source: stacks/notebooks/terraform/.terraform.lock.hcl
+                    destination: stacks/notebooks/terraform/.terraform.lock.hcl
                     is_file: yes
                 - exec:
                     command: /bin/bash
                     arguments:
                       - -c
-                      - cp .terraform.lock.hcl stacks/notebooks/terraform/.terraform.lock.hcl
+                      - ls stacks/notebooks/terraform
                 - exec:
                     command: /bin/bash
                     arguments:
