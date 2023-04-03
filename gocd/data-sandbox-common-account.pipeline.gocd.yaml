@@ -66,9 +66,4 @@ pipelines:
                     command: /bin/bash
                     arguments:
                       - -c
-                      - ls -lsa stacks/data-sandbox/terraform
-                - exec:
-                    command: /bin/bash
-                    arguments:
-                      - -c
                       - ./tasks dojo-apply data-sandbox common_dev
